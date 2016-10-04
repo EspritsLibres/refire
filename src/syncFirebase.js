@@ -132,8 +132,9 @@ export default function syncFirebase(options = {}) {
       // check if subscription paths or queries have changed
       remaining.forEach(localBinding => {
         if (
+          currentOptions[localBinding] && (
           !isEqual(currentOptions[localBinding].path, previousOptions[localBinding].path) ||
-          !isEqual(currentOptions[localBinding].queryState, previousOptions[localBinding].queryState)
+          !isEqual(currentOptions[localBinding].queryState, previousOptions[localBinding].queryState))
         ) {
           // unsubscribe
           unsubscribe(
