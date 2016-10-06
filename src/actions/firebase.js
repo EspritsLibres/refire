@@ -259,7 +259,7 @@ export function passwordLogin(email, password) {
         dispatch(updateCompleted("login", true))
         return resolve()
       }).catch(error => {
-        dispatch(updateError("login", error.message))
+        dispatch(updateError("login", error))
         dispatch(updateProcessing("login", false))
         return reject()
       })
@@ -283,7 +283,7 @@ export function oAuthLogin(flowCode, providerCode, scopes = []) {
         dispatch(updateCompleted("login", true))
         return resolve()
       }).catch(error => {
-        dispatch(updateError("login", error.message))
+        dispatch(updateError("login", error))
         dispatch(updateProcessing("login", false))
         return reject()
       })
@@ -311,8 +311,7 @@ export function createUser(email, password) {
       }).catch(error => {
         dispatch(
           updateError(
-            "createUser",
-            createUserErrors[error.code] || error.message
+            "createUser", error
           )
         )
         dispatch(updateProcessing("createUser", false))
@@ -334,8 +333,7 @@ export function resetPassword(email) {
     }).catch(error => {
       dispatch(
         updateError(
-          "resetPassword",
-          resetPasswordErrors[error.code] || error.message
+          "resetPassword", error
         )
       )
       dispatch(updateProcessing("resetPassword", false))
@@ -367,7 +365,7 @@ export function write({ method, path = "", value, ownProps }) {
         error => {
           if (error) {
             dispatch(
-              updateWriteErrors(finalPath, error.message)
+              updateWriteErrors(finalPath, error)
             )
             return reject()
           }
