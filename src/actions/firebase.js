@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import uniq from 'lodash/array/uniq'
+import uniq from 'lodash/uniq'
 
 export const ARRAY_CHILD_ADDED = "ARRAY_CHILD_ADDED"
 export const ARRAY_CHILD_CHANGED = "ARRAY_CHILD_CHANGED"
@@ -164,9 +164,9 @@ export function removeArrayChild(path, snapshot) {
 }
 
 export function updateArray(path, key, value) {
-  const recordsArray = Object.keys(value || []).reduce((arr, recordKey) => {
+  const recordsArray = (value || []).reduce((arr, record) => {
     arr.push(
-      createRecord(recordKey, value[recordKey])
+      createRecord(record[0], record[1])
     )
     return arr
   }, [])
@@ -285,7 +285,7 @@ export function oAuthLogin(flowCode, providerCode, scopes = []) {
       }).catch(error => {
         dispatch(updateError("login", error))
         dispatch(updateProcessing("login", false))
-        return reject()
+        return reject(error)
       })
     })
   }
