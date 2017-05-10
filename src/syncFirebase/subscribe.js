@@ -64,6 +64,7 @@ export default function subscribe(localBinding, bindOptions, options) {
         snapshot.forEach( (child) => {
           keys.push(child.key);
         });
+        
         Promise.all(
           keys.map(populateChild)
         ).then(resolved => {
