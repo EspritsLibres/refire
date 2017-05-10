@@ -61,7 +61,7 @@ export default function subscribe(localBinding, bindOptions, options) {
       if (populate) {
         const populateRefs = {};
         let keys = [];
-        snapshot.forEach(child => {
+        snapshot.forEach( (child) => {
           keys.push(child.key);
         });
         Promise.all(
